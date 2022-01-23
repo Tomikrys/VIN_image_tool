@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  border: 1px solid black;
+}
+
+canvas {
+  border: 1px solid red;
+  width: 80vw;
+  height:80vw;
+  z-index: 30;
+  position: relative;
+  -webkit-user-drag: none; 
+  user-select: none; 
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
