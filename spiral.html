@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Spiral Raster</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/spiral/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/spiral/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/spiral/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/spiral/site.webmanifest">
     <link rel="stylesheet" href="public/js/examples/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -19,7 +23,7 @@
         // As the web is asynchronous, we need to wait for the raster to
         // load before we can perform any operation on its pixels.
         var raster = new Raster('mona');
-        raster.visible = false;
+        raster.visible = document.getElementById('showimage').checked;
         raster.on('load', resetSpiral);
 
         var text = new PointText({
@@ -59,6 +63,7 @@
         }
 
         function resetSpiral() {
+            raster.visible = document.getElementById('showimage').checked;
             grow = true;
 
             // Transform the raster, so it fills the view:
@@ -84,7 +89,8 @@
             point: [0, 0],
             size: [view.size.width, view.size.height],
             strokeColor: 'white',
-            selected: true
+            selected: false,
+            strokeWidth: 0
         });
 
         function onResize() {
@@ -97,7 +103,8 @@
                 point: [0, 0],
                 size: [view.size.width, view.size.height],
                 strokeColor: 'white',
-                selected: false
+                selected: false,
+                strokeWidth: 0
             });
             rect.sendToBack();
             color = document.getElementById('colorpickerback').value;
@@ -106,7 +113,7 @@
 
         function onKeyDown(event) {
             if (event.key == 'space') {
-                path.selected = !path.selected;
+                //path.selected = !path.selected;
             }
         }
 
@@ -124,7 +131,7 @@
                 var image = document.createElement('img');
                 image.onload = function () {
                     raster = new Raster(image);
-                    raster.visible = false;
+                    raster.visible = document.getElementById('showimage').checked;
                     resetSpiral();
                 };
                 image.src = event.target.result;
@@ -164,7 +171,9 @@
     
     <div class="row">
         <div class="color-picker">
-            <label for="colorpickerback">Barva pozadí:&nbsp;</label>
+            <label for="showimage">Zobrazit fotku:&nbsp;</label>
+            <input type="checkbox" id="showimage" name="showimage" value="true" onchange="redraw()">
+            <label for="colorpickerback">&nbsp;&nbsp;Barva pozadí:&nbsp;</label>
             <input type="color" id="colorpickerback" value="#ffffff" onchange="change_background(this.value)">
             <label for="colorpickerink">&nbsp;&nbsp;Barva inkoustu:&nbsp;</label>
             <input type="color" id="colorpickerink" value="#000000" onchange="redraw()">
