@@ -12,8 +12,14 @@
     height: 0;
     overflow: hidden;
 }
+.fluidMediaQbertify {
+    position: relative;
+    padding-bottom: Calc(52% + 50px);  /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+    height: 0;
+    overflow: hidden;
+}
 
-.fluidMediaMona iframe, .fluidMedia iframe {
+.fluidMediaMona iframe, .fluidMediaQbertify iframe, .fluidMedia iframe {
     position: absolute;
     top: 0; 
     left: 0;

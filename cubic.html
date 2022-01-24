@@ -77,6 +77,32 @@ function onResize(event) {
         onMouseMove: moveHandler
     });
 }
+
+function onDocumentDrag(event) {
+    event.preventDefault();
+}
+
+function onDocumentDrop(event) {
+    event.preventDefault();
+
+    var file = event.dataTransfer.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var image = document.createElement('img');
+        image.onload = function () {
+            raster = new Raster(image);
+            onResize(null);
+        };
+        image.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+
+document.addEventListener('drop', onDocumentDrop, false);
+document.addEventListener('dragover', onDocumentDrag, false);
+document.addEventListener('dragleave', onDocumentDrag, false);
     </script>
 </head>
 <body>

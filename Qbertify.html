@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/Qbertify/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/Qbertify/favicon-16x16.png">
     <link rel="manifest" href="assets/favicon/Qbertify/site.webmanifest">
-    <link rel="stylesheet" href="public/css/style.css">
     <script type="text/javascript" src="public/js/dist/paper-full.js"></script>
     <script type="text/paperscript" canvas="canvas">
         // Please note: dragging and dropping images only works for
@@ -115,6 +114,7 @@
         var lastimage = 'mona';
 
         function onResize() {
+            console.log("tak coe");
             project.activeLayer.position = view.center;
             values = {
                  amount: parseInt(document.getElementById('numofcubes').value)
@@ -123,6 +123,8 @@
             handleImage(lastimage);
             //view.draw();
         }
+
+        window.onResize = onResize;
 
         function onDocumentDrag(event) {
             event.preventDefault();
@@ -155,26 +157,29 @@
             document.getElementById('size').innerHTML = value.toString();
         }
         function redraw() {
-            var resizeEvent = new Event('resize');
-            window.dispatchEvent(resizeEvent);  
+            window.onResize();
+            // var resizeEvent = new Event('resize');
+            // window.dispatchEvent(resizeEvent);  
         }
     </script>
     <style>
-        .color-picker {
+        .settings {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 50px;
             border-bottom: 1px solid black; 
+            background-color: white;
+            font-family: Arial;
         }
     </style>
 </head>
 <body>
     <div class="row">
-        <div class="color-picker">
-            <label for="numofcubes">&nbsp;&nbsp;Počet kostek:&nbsp;<span id="size">30</span>&nbsp;</label>
-            <input type="range" min="2" max="100" value="30" id="numofcubes" oninput="change_size(this.value)" onchange="redraw()">
-            <p>(mnoho kostek může shodit prohlížeč)</p>
+        <div class="settings">
+            <label for="numofcubes">&nbsp;&nbsp;Počet kostek v řádku:&nbsp;<span id="size">30</span>&nbsp;</label>
+            <input type="range" min="1" max="150" value="30" id="numofcubes" oninput="change_size(this.value)" onchange="redraw()">
+            <p>(mnoho kostek může shodit prohlížeč, nedoporučuji nad 80)</p>
         </div>
         <canvas id="canvas" style="width:100%" resize></canvas>
     </div>
