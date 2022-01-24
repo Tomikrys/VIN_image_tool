@@ -176,7 +176,7 @@
             <input type="color" id="colorpickerback" value="#ffffff" onchange="change_background(this.value)">
             <label for="colorpickerink">&nbsp;&nbsp;Barva inkoustu:&nbsp;</label>
             <input type="color" id="colorpickerink" value="#000000" onchange="redraw()">
-            <label for="sizerange">&nbsp;&nbsp;Velikost obrázku:&nbsp;<span id="size">50</span>%&nbsp;</label>
+            <label for="sizerange">&nbsp;&nbsp;Velikost spirály:&nbsp;<span id="size">50</span>%&nbsp;</label>
             <input type="range" min="0" max="100" value="50" id="sizerange" oninput="change_size(this.value)" onchange="redraw()">
         </div>
         <canvas id="canvas" resize style="background-color:white"></canvas>
